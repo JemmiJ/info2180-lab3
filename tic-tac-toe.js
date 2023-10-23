@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const gamestat = document.getElementById("status");
     const game = document.getElementById("game")
     const gamecontrols = document.getElementsByClassName("controls");
-    const startbutton = document.getElementsByClassName("btn")[0];
-    const boxes = board.querySelectorAll('div');
+    const startbutton = document.getElementsByClassName("btn");
+    const boxes = board.querySelectorAll("div");
     const cells = ["","","","","","","","",""];
     let playerx = "X";
     let gameends = false;
@@ -21,23 +21,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i=0; i<=8; i++)
     {
-        boxes[i].setAttribute("class", "square");
+        boxes[i].classList.add("square");
 
     }
     function squareclick (ele, i)
     {
-        console.log(ele.innerHTML)
-        if(ele.innerHTML === "" && !gameends/*||ele.innerHTML !== "O"*/){
+        if(ele.innerHTML === "" && !gameends){
             ele.innerHTML = playerx;
             ele.classList.add(playerx);
             cells[i] = playerx;
             console.log(cells);
-            checkwin()
+
             if(playerx ==="X"){
                 playerx = "O";
+                checkwin();
             }
             else{
                 playerx = "X";
+                checkwin();
             }
         }
     }
@@ -68,19 +69,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-    button.addEventListenr('click')
-
-    /*
-    button.addEventListener('click', ()=>{
-        poslst=['', '', '', '', '', '', '', '', ''];
-        status.innerHTML= 'Move your mouse over a square and click to play an X or an O.'
-        status.classList.remove('you-won');
-        e.forEach(element =>{
-            element.innerText ='';
-            element.classList.remove('X');
-            element.classList.remove('O');
-        });
-    });
-
-*/
+    function restartgame(){
+        cells = ["","","","","","","","",""];
+        gameends= false
+        gamestat.classList.remove("you-won");
+        gamestat.innerHTML = "Move your mouse over a square and click to play an X or an O.";
+        boxes.forEach(element=>{
+                element.innerHTML=""
+                element.classList.remove(playerx)
+        })
+    }
+    startbutton.addEventListener('click', restartgame)
 })
