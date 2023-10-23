@@ -69,15 +69,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-    function restartgame(){
+    startbutton.addEventListener('click', ()=>{
         cells = ["","","","","","","","",""];
-        gameends= false
-        gamestat.classList.remove("you-won");
         gamestat.innerHTML = "Move your mouse over a square and click to play an X or an O.";
+        gamestat.classList.remove("you-won");
         boxes.forEach(element=>{
-                element.innerHTML=""
-                element.classList.remove(playerx)
+                element.innerText=""
+                element.className = "square"
         })
-    }
-    startbutton.addEventListener('click', restartgame)
+        playerx = "X"
+        gameends = false;
+    })
 })
